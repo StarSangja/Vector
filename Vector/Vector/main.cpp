@@ -1,4 +1,4 @@
-// ** Vector ver 0.5
+// ** Vector ver 0.6
 
 #include <iostream>
 
@@ -16,7 +16,7 @@ int main(void)
 	};
 	 
 
-	for (int i = 0; i < 5; i++)
+	for (int i = 0; i < 5; ++i)
 		cout << (*str1)[i];
 
 	cout << endl;
