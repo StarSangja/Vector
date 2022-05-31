@@ -1,4 +1,4 @@
-// ** Vector ver 0.4
+// ** Vector ver 0.5
 
 #include <iostream>
 
