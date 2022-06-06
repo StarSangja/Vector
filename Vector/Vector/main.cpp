@@ -1,4 +1,4 @@
-// ** Vector ver 0.8
+// ** Vector ver 0.9
 
 #include <iostream>
 
@@ -44,20 +44,22 @@ void push_back(const int& _Value)
 {
 	// 사이즈와 케퍼시티 같게 수용량이 늘어나기 전에는 밑에가 진행 안되게?
 	// 증가해야 할때 까지 케퍼시티 증가하지 않게 만들기
-	capacity += (capacity <= 3) ? 1 : capacity >> 1;
+	if (Size >= capacity)
+		capacity += (capacity <= 3) ? 1 : capacity >> 1;
 
-	int* Temp = new int[capacity];
+			
+		int* Temp = new int[capacity];
 
-	for (int i = 0; i < Size; ++i)
-		Temp[i] = Vector[i];
+		for (int i = 0; i < Size; ++i)
+			Temp[i] = Vector[i];
 
-	if (Vector)
-	{
-		delete Vector;
-		Vector = nullptr;
+		if (Vector)
+		{
+			delete Vector;
+			Vector = nullptr;
 
-	}
-
+		}
+	
 	
 	Temp[Size] = _Value;
 	++Size;
