@@ -1,4 +1,4 @@
-// ** Vector ver 0.9
+// ** Vector ver 0.9.1
 
 #include <iostream>
 
@@ -26,7 +26,17 @@ int capacity = 0;
 int* Vector = nullptr;
 
 // 전방선언
+// 컨테이너의 마지막 위치에 값을 추가
 void push_back(const int& _Value);
+
+// 컨테이너의 마지막 위치에 있는 값을 삭제
+void pop_back();
+
+int front();
+int back();
+
+void erase(const int& _where);
+
 
 int main(void)
 {
@@ -34,45 +44,102 @@ int main(void)
 	for (int i = 0; i < 10; ++i)
 		push_back(i * 100 + 100);
 	
-	for (int i = 0; i < Size; ++i)
-		cout << Vector[i] << endl;
+	pop_back();
 
+	push_back(10000);
+
+	cout << endl << front() << endl;
+	cout << back() << endl;
+
+	erase(3);
+	
+	// 출력
+	for (int i = 0; i < Size; ++i)
+		cout << "Velue: " << Vector[i] << endl;
+	cout << "Size: " << Size << endl;
+	cout << "capacity: " << capacity << endl << endl;
+
+	
 	return 0;
 }
 
+
 void push_back(const int& _Value)
 {
-	// 사이즈와 케퍼시티 같게 수용량이 늘어나기 전에는 밑에가 진행 안되게?
-	// 증가해야 할때 까지 케퍼시티 증가하지 않게 만들기
-	if (Size >= capacity)
+
+	if (capacity <= Size)
+	{
 		capacity += (capacity <= 3) ? 1 : capacity >> 1;
 
-			
-		int* Temp = new int[capacity];
+
+		int* Temp = new int[capacity + 1];
+
+		
+
+		for (int i = 0; i < capacity; ++i)
+			Temp[i] = NULL;
+
 
 		for (int i = 0; i < Size; ++i)
 			Temp[i] = Vector[i];
 
+		
 		if (Vector)
 		{
 			delete Vector;
 			Vector = nullptr;
 
 		}
+
+		Temp[Size] = _Value;
+		
+		Vector = Temp;
+
+	}
+
+	else
+		Vector[Size] = _Value;
 	
-	
-	Temp[Size] = _Value;
+
 	++Size;
+	Vector[capacity] = NULL;
 
-	Vector = Temp;
-
+	cout << "Value: " << _Value << endl;
 	cout << "Size: " << Size << endl;
-	cout << "capacity: " << capacity << endl;
+	cout << "capacity: " << capacity << endl << endl;
+
 	
 }
 
+void pop_back()
+{
+	--Size;
+}
 
+int front()
+{
+	return Vector[0];
+}
 
+int back()
+{
+	return Vector[Size-1];
+
+}
+
+void erase(const int& _where)
+{
+	// 특정 위치에 있는 원소를 삭제 하고 정렬.
+
+	--Size;
+	for (int i = _where + (-1); i < Size; ++i)
+		Vector[i] = Vector[i + 1];
+	
+}	
+
+// 인설트 함수를 만들어서 특정 위치에 데이터를 삽입할 수 있는 함수 만들기
+
+#pragma region 22.05.27
 // =============22.05.27=========================
 /*
 	char str1[2][5]
@@ -96,7 +163,9 @@ void push_back(const int& _Value)
 
 */
 
+#pragma endregion
 
+#pragma region 22.06.02
 //============22.06.02========
 
 // 0 0000000 = 0
@@ -208,16 +277,19 @@ void push_back(const int& _Value)
 		*/
 
 
-/*
-		// ** 배열은 아니지만 배열 처럼 사용할 수 있다.
-int Size = 10;
-int iter = 0;
-int* Vector = new int[Size];
+		/*
+				// ** 배열은 아니지만 배열 처럼 사용할 수 있다.
+		int Size = 10;
+		int iter = 0;
+		int* Vector = new int[Size];
 
-for (int i = 0; i < Size; ++i)
-	Vector[i] = i;
+		for (int i = 0; i < Size; ++i)
+			Vector[i] = i;
 
-for (int i = 0; i < 11; ++i)
-	cout << Vector[iter++] << endl;
+		for (int i = 0; i < 11; ++i)
+			cout << Vector[iter++] << endl;
 
-*/
+		*/
+
+#pragma endregion
+
